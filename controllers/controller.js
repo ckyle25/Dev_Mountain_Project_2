@@ -68,10 +68,9 @@ module.exports = {
           res.status(500).send('Incorrect username or password')
         }
       })
-
   },
 /*
-  Sets session.loggedIN to false, denying access to content endpoint
+  Sets session.loggedIN to false, denying access to all content endpoints
 */
   logout: (req, res) =>{
     req.session.destroy();
@@ -107,6 +106,11 @@ module.exports = {
       })
   },
 
+/*
+  Delete property takes a content ID parameter and extracts the userID from
+  the active session. It will call a SQL command that deletes the specified propertyID
+  and then it will also use a GET call to show the updated properties list object
+*/
   deleteProperty: (req, res) =>{
     const dbInstance = req.app.get('db')
     let propertyID = req.params.Id

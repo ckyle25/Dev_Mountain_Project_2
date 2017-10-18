@@ -1,5 +1,4 @@
 {
-	"userid": 3,
 	"property_name" : "Hawaii Town Home",
 	"property_description" : "Super cool home on Hawaiis best beach",
 	"address" : "3535 kick ass lane",
