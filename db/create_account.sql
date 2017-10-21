@@ -1,2 +1,2 @@
-INSERT INTO Users (username, password, userrole)
-Values(${username},${password},${userrole});
+INSERT INTO Users (username, password)
+Values(${username},${password});

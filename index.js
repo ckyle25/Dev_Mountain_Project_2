@@ -18,7 +18,7 @@ massive( process.env.CONNECTION_STRING).then( dbInstance => {
 app.use( bodyParser.json() );
 app.use( cors() );
 app.use( session({
-  secret: 'ben-super-secret-token',
+  secret: 'kyle-token',
   resave: false,
   saveUninitialized: false,
   //cookie: {maxAge: 6000 }
@@ -31,11 +31,11 @@ app.post('/createProperty', controller.createProperty)
 app.get('/logout', controller.logout);
 
 //Displays properties if user is logged in
-app.get('/content',auth, controller.content);
+app.get('/content/:id' /*,auth*/, controller.content);
 app.get('/content/filter/:rent',auth, controller.contentFilter);
 
 app.delete('/content/:Id', controller.deleteProperty);
 
 
-const port = process.env.PORT || 3000
-app.listen( port, () => {console.log(`Yo Dawg, This server be trippin on port ${port}`);});
+const port = process.env.PORT || 3001
+app.listen( port, () => {console.log(`Server is running on port ${port}`);});

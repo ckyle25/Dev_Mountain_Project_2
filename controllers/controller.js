@@ -10,7 +10,6 @@ module.exports = {
     const dbInstance = req.app.get('db')
     let username = req.body.username;
     let password = req.body.password;
-    let userrole = req.body.userrole;
 
 /* Will check username data base for proposed user name, if the
    username does not already exist, the username and password will be added
@@ -21,7 +20,7 @@ module.exports = {
         if(response.length>0){
           res.status(500).send(`The username ${username} is already in use.`)
         }else{
-          dbInstance.create_account({username, password, userrole})
+          dbInstance.create_account({username, password})
             .then(response2 =>{
               res.status(200).send('Account has been created')
             })
@@ -63,7 +62,7 @@ module.exports = {
         if(user.length > 0){
           req.session.loggedIN = true;
           req.session.userID = user[0].userid
-          res.status(200).send(`Welcome back ${username}`)
+          res.status(200).send(user[0])
         }else{
           res.status(500).send('Incorrect username or password')
         }
@@ -83,7 +82,8 @@ module.exports = {
 */
   content: (req, res) => {
     const dbInstance = req.app.get('db')
-    let userID = req.session.userID
+    // let userID = req.session.userID
+    let userID = req.params.id
     dbInstance.get_properties({userID})
       .then( response =>{
         res.status(200).send(response)
