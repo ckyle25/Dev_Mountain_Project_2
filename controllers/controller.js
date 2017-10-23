@@ -36,12 +36,12 @@ module.exports = {
     const dbInstance = req.app.get('db')
     let { property_name,
     property_description, address, city, state, zip,
-    url, loan_amount, monthly_mortage, desired_rent } = req.body;
+    url, loan_amount, monthly_mortgage, desired_rent, recommended_rent } = req.body;
     let userid = req.session.userID;
 
     dbInstance.create_property({ userid, property_name,
     property_description, address, city, state, zip,
-    url, loan_amount, monthly_mortage, desired_rent })
+    url, loan_amount, monthly_mortgage, desired_rent, recommended_rent })
     .then(response => {
       res.status(200).send('Property has been added')
     })
@@ -82,8 +82,8 @@ module.exports = {
 */
   content: (req, res) => {
     const dbInstance = req.app.get('db')
-    // let userID = req.session.userID
-    let userID = req.params.id
+    let userID = req.session.userID
+    // let userID = req.params.id
     dbInstance.get_properties({userID})
       .then( response =>{
         res.status(200).send(response)
@@ -99,7 +99,6 @@ module.exports = {
     const dbInstance = req.app.get('db')
     let userID = req.session.userID
     let desired_rent = req.params.rent
-
     dbInstance.get_properties_filtered({ userID, desired_rent })
       .then( response => {
         res.status(200).send(response)

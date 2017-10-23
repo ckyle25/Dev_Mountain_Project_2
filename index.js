@@ -16,13 +16,21 @@ massive( process.env.CONNECTION_STRING).then( dbInstance => {
 })
 
 app.use( bodyParser.json() );
-app.use( cors() );
 app.use( session({
   secret: 'kyle-token',
   resave: false,
   saveUninitialized: false,
   //cookie: {maxAge: 6000 }
 }));
+
+app.use( cors({
+  origin: ['http://localhost:3000'],
+  methods: ['GET', 'POST','DELETE'],
+  credentials: true
+}) );
+
+
+
 
 //Endpoints
 app.post('/login', controller.login);
@@ -31,7 +39,7 @@ app.post('/createProperty', controller.createProperty)
 app.get('/logout', controller.logout);
 
 //Displays properties if user is logged in
-app.get('/content/:id' /*,auth*/, controller.content);
+app.get('/content/' ,auth, controller.content);
 app.get('/content/filter/:rent',auth, controller.contentFilter);
 
 app.delete('/content/:Id', controller.deleteProperty);
